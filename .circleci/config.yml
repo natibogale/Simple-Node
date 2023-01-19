@@ -31,9 +31,13 @@ jobs:
           name: "version"
           command: "docker --version"
       - run:
+          command: "cd ../"
+      - run:
+          command: "ls -a"
+      - run:
           name: "build"
-          dockerfile: "../Dockerfile"
-          command: "docker build -t simple-node ."
+          dockerfile: "./Dockerfile"
+          command: "docker build -f ../Dockerfile -t simple-node ."
       - run:
           name: "tag"
           command: "docker tag simple-node $DOCKER_USERNAME/simple-node:latest"
