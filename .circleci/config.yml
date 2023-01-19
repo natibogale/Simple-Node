@@ -10,6 +10,7 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
       - image: cimg/base:stable
+    
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
@@ -25,7 +26,7 @@ jobs:
           command: "docker --version"
       - run:
           name: "build"
-          command: "docker build -t simple-node ."
+          command: "docker build -f ./Dockerfile -t simple-node ."
       - run:
           name: "tag"
           command: "docker tag simple-node $DOCKER_USERNAME/simple-node:latest"
