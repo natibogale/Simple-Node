@@ -26,7 +26,7 @@ jobs:
           command: "docker --version"
       - run:
           name: "build"
-          command: "docker build -f ./travis_ci/Dockerfile -t simple-node ."
+          command: "ls && pwd && docker build -f ./travis_ci/Dockerfile -t simple-node ."
       - run:
           name: "tag"
           command: "docker tag simple-node $DOCKER_USERNAME/simple-node:latest"
