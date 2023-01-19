@@ -7,12 +7,12 @@ version: 2.1
 jobs:
   say-hello:
     build: 
-      working_directory: ~/repo
+      working_directory: /travis_ci
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
-      - image: circleci/node:5.0.2
-      - context: ../Dockerfile
+      - image: cimg/node:5.0.2
+      - context: ./Dockerfile
     
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
