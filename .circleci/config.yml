@@ -10,7 +10,7 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
       - image: circleci/node:5.0.2
-      - dockerfile: ../Dockerfile
+      
     
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
@@ -27,6 +27,7 @@ jobs:
           command: "docker --version"
       - run:
           name: "build"
+          dockerfile: "../Dockerfile"
           command: "docker build -t simple-node ."
       - run:
           name: "tag"
