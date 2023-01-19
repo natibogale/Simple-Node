@@ -14,27 +14,27 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
+     - run:
+          name: "Say hello"
+          command: "echo nothing needs to be installed"
       - run:
-            name: "Say hello"
-            command: "echo nothing needs to be installed"
-        - run:
-            name: "Before Install"
-            command: "echo no tests"
-        - run:
-            name: "version"
-            command: "docker --version"
-        - run:
-            name: "build"
-            command: "docker build -t simple-node ."
-        -run:
-            name: "tag"
-            command: "docker tag simple-node $DOCKER_USERNAME/simple-node:latest"
-        - run:
-            name: "after success"
-            command: "echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin"
-        - run:
-            name: "push"
-            command: "docker push $DOCKER_USERNAME/simple-node" 
+          name: "Before Install"
+          command: "echo no tests"
+      - run:
+          name: "version"
+          command: "docker --version"
+      - run:
+          name: "build"
+          command: "docker build -t simple-node ."
+      -run:
+          name: "tag"
+          command: "docker tag simple-node $DOCKER_USERNAME/simple-node:latest"
+      - run:
+          name: "after success"
+          command: "echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin"
+      - run:
+          name: "push"
+          command: "docker push $DOCKER_USERNAME/simple-node"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
