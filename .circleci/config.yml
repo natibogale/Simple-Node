@@ -1,23 +1,47 @@
-language: node_js
-node_js:
-  - 13
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
 
-services:
-  - docker
+orbs:
+  node: circleci/node@5.1.0
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+jobs:
+  say-hello:
+    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+  
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    steps:
+      - install
+      - run:
+          name: "Say hello"
+          command: "echo nothing needs to be installed"
+      - run:
+          name: "Before Install"
+          command: "echo no tests"
+      - run:
+          name: "version"
+          command: "docker --version"
+      - run:
+          name: "build"
+          command: "docker build -t simple-node ."
+      -run:
+          name: "tag"
+          command: "docker tag simple-node $DOCKER_USERNAME/simple-node:latest"
+      - run:
+          name: "after success"
+          command: "echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin"
+      - run:
+          name: "push"
+          command: "docker push $DOCKER_USERNAME/simple-node"
 
-# Pre-testing installs
-install:
-  - echo "nothing needs to be installed"
 
-# Scripts to be run such as tests
-before_script:
-  - echo "no tests"
 
-script:
-  - docker --version # print the version for logging
-  - docker build -t simple-node .
-  - docker tag simple-node YOUR_DOCKER_HUB/simple-node:latest
-
-after_success:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push YOUR_DOCKER_HUB/simple-node
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+workflows:
+  say-hello-workflow:
+    jobs:
+      - say-hello
